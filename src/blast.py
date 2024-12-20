@@ -260,7 +260,7 @@ class BLAST:
         
         return num_matches, num_matches / length_seq
         
-    def print_alignment_report(self) -> None:
+    def print_alignment_report(self, top_candidates = np.inf) -> None:
         """
         Print a detailed report of the alignments.
 
@@ -269,6 +269,7 @@ class BLAST:
         """
         
         print("From longest to shortest:")
+        i = 1
         for alignment_info in self.alignment_info_list:
             print(f"kmer: {alignment_info['kmer']}  match length: {alignment_info['match_len']}")
             print(f"seq1[{alignment_info['seq1_start']}:{alignment_info['seq1_end']}]  seq2[{alignment_info['seq2_start']}:{alignment_info['seq2_end']}]")
@@ -278,6 +279,10 @@ class BLAST:
             print(f"A total of {num_matches} of {len(splice1)} bases in alignment.")
             print(f"Fraction aligned: {percent_homology}")
             print("----------------------------------------")
+            if i >= top_candidates:
+                break
+            else:
+                i += 1
     
     def export_homologous_sequences(self, kmer: str, seq1_start: int, seq2_start: int) -> tuple:
         """

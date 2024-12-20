@@ -82,7 +82,7 @@ class GlobalAlignment:
             conv_result = fftconvolve(seq0_binary, seq1_binary_reversed, mode='full')
 
             # Since the result may have small imaginary parts due to numerical errors, take the real part
-            conv_result = np.round(np.real(conv_result)).astype(int)
+            conv_result = np.round(np.real(conv_result)).astype('uint32')
 
             matches += conv_result
 
@@ -114,7 +114,7 @@ class GlobalAlignment:
         """
         Print a summary report of the alignment analysis.
         """
-        if self.matches:
+        if len(self.matches) > 0:
             print(f"seq1 length: {len(self.seq1)}  seq2 length: {len(self.seq2)}")
             print("Most bases aligned:", self.matches[self.max_alignment])
             print("Index to align:", self.max_alignment - len(self.seq1))

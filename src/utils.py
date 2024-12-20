@@ -1,7 +1,9 @@
 from Bio import SeqIO
 
-def fasta_to_str(filepath):
+def fasta_to_str(filepath, verbose=True):
     for record in SeqIO.parse(filepath, 'fasta'):
+        if verbose:
+            print(record.description)
         return record.seq
 
 def rev_complement(seq):
